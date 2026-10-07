@@ -1,0 +1,25 @@
+{
+  "rules": {
+    ".read": false,
+    ".write": false,
+    "league": {
+      ".read": true,
+      "players": {
+        ".write": true,
+        ".validate": "newData.hasChildren(['0', '1', '2', '3', '4', '5'])",
+        "$i": {
+          ".validate": "$i.matches(/^[0-5]$/) && newData.isString() && newData.val().length > 0 && newData.val().length <= 30"
+        }
+      },
+      "results": {
+        ".write": true,
+        "$match": {
+          ".validate": "$match.matches(/^[0-5]-[0-5]$/) && newData.hasChildren(['0', '1'])",
+          "$side": {
+            ".validate": "$side.matches(/^[01]$/) && newData.isNumber() && newData.val() >= 0 && newData.val() <= 99"
+          }
+        }
+      }
+    }
+  }
+}
