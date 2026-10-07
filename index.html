@@ -114,6 +114,7 @@ function schedule(n) {
   return weeks;
 }
 const WEEKS = schedule(PLAYER_COUNT);
+[WEEKS[1], WEEKS[4]] = [WEEKS[4], WEEKS[1]]; // play matchweek 5's fixtures in week 2 and vice versa
 
 // ---- Storage: Firebase Realtime Database when configured, otherwise this browser only ----
 const store = await (async () => {
