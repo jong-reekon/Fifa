@@ -22,6 +22,7 @@
   #status.live::before { content: "● "; color: var(--accent); }
   #status.local::before { content: "● "; color: #ffb020; }
   main { max-width: 960px; margin: 0 auto; padding: 16px; display: grid; gap: 16px; }
+  main > * { min-width: 0; } /* let the table scroll sideways instead of widening the page */
   .card { background: var(--card); border: 1px solid var(--line); border-radius: 12px; padding: 16px; }
   h2 { margin: 0 0 12px; font-size: 17px; }
   .scroll { overflow-x: auto; }
@@ -51,12 +52,26 @@
   button.primary { background: var(--brand); color: #fff; border-color: var(--brand); }
   button.danger { color: var(--loss); }
   .hint { color: var(--muted); font-size: 13px; margin: 8px 0 0; }
+  .trophy { display: grid; place-items: center; background: radial-gradient(closest-side, rgba(0, 255, 133, .18), transparent); }
+  #trophy { width: 100%; max-width: 420px; height: 320px; display: block; }
   @media (min-width: 800px) { main { grid-template-columns: 1fr 1fr; } .full { grid-column: 1 / -1; } }
 </style>
+<script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.0/examples/jsm/"
+    }
+  }
+</script>
 </head>
 <body>
 <header><div class="inner"><h1>FIFA League</h1><span id="status">Connecting…</span></div></header>
 <main>
+  <section class="trophy full" aria-hidden="true">
+    <canvas id="trophy"></canvas>
+  </section>
+
   <section class="card full">
     <h2>Table</h2>
     <div class="scroll"><table id="table"></table></div>
@@ -276,5 +291,6 @@ store.subscribe(data => {
   render();
 });
 </script>
+<script type="module" src="trophy.js"></script>
 </body>
 </html>
